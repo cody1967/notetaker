@@ -16,16 +16,14 @@ const notes = [
   }
 ];
 // HTML routes
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/index.html'));
-});
+
 
 app.get('/notes', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/notes.html'));
+  res.sendFile(path.join(__dirname, './public/notes.html'));
 });
 
 // API routes
-app.get('/notes', (req, res) => {
+app.get('/api/notes', (req, res) => {
   crud
   .getAll()
   .then((parsedNotes)=> {
@@ -57,7 +55,9 @@ app.delete('/notes/:id', (req, res) => {
   // forloop onload comes from here.
   
 });
-
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/index.html'));
+});
 // Listener
 // =============================================================
 app.listen(PORT, () => {
