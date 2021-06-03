@@ -9,14 +9,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
-const notes = [
-  {
-    title: "hello",
-    text: "world",
-  }
-];
-// HTML routes
 
+// HTML routes
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/index.html'));
+});
 
 app.get('/notes', (req, res) => {
   res.sendFile(path.join(__dirname, './public/notes.html'));
@@ -33,7 +30,7 @@ app.get('/api/notes', (req, res) => {
   // forloop onload comes from here.
   
 });
-app.post('/notes', (req, res) => {
+app.post('/api/notes', (req, res) => {
   crud
   .add(req.body)
   .then((note)=> {
@@ -43,9 +40,9 @@ app.post('/notes', (req, res) => {
   // forloop onload comes from here.
   
 });
-app.delete('/notes/:id', (req, res) => {
+app.delete('/api/notes/:id', (req, res) => {
   crud
-  .deleteNote(req.perams.id)
+  .deleteNote(req.params.id)
   .then(()=> {
     return res.json({
       ok: true
@@ -55,11 +52,9 @@ app.delete('/notes/:id', (req, res) => {
   // forloop onload comes from here.
   
 });
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, './public/index.html'));
-});
+
 // Listener
 // =============================================================
 app.listen(PORT, () => {
-  console.log(`App listening on PORT ${PORT}`);
+  console.log(`App listening on PORT http://localhost:${PORT}`);
 });
